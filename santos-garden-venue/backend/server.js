@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -15,6 +18,8 @@ app.use(express.json());
 // ======== VARIABLES DE ENTORNO ========
 const MONGO_URI = process.env.MONGO_URI;
 const PORT = process.env.PORT || 4000;
+
+console.log("DEBUG MONGO_URI:", MONGO_URI); // <-- temporal, te ayuda a verificar que sí se lee
 
 // ======== CONEXIÓN A MONGODB ATLAS ========
 mongoose
