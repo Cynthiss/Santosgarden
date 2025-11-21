@@ -1,5 +1,5 @@
-// 🔥 URL de backend en Render
-const API_BASE = "https://santosgarden.onrender.com";
+// 🌐 Lee la URL desde las variables de entorno de Vercel
+const API_BASE = import.meta.env.VITE_API_BASE;
 
 export const api = {
   // =====================================
@@ -50,9 +50,7 @@ export const api = {
   async deleteEvent(id, token) {
     const res = await fetch(`${API_BASE}/api/events/${id}`, {
       method: "DELETE",
-      headers: {
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      },
+      headers: { ...(token ? { Authorization: `Bearer ${token}` } : {}) },
     });
 
     if (!res.ok) {
@@ -71,7 +69,7 @@ export const api = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        ...(token ? { Authorization: `Bearer ${token}` } : {})
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
       body: JSON.stringify(data),
     });
@@ -107,9 +105,7 @@ export const api = {
 
   async getMyReservations(token) {
     const res = await fetch(`${API_BASE}/api/reservations/my`, {
-      headers: {
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      },
+      headers: { ...(token ? { Authorization: `Bearer ${token}` } : {}) },
     });
 
     if (!res.ok) {
@@ -122,9 +118,7 @@ export const api = {
 
   async getAllReservations(token) {
     const res = await fetch(`${API_BASE}/api/reservations/all`, {
-      headers: {
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      },
+      headers: { ...(token ? { Authorization: `Bearer ${token}` } : {}) },
     });
 
     if (!res.ok) {
