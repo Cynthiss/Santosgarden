@@ -1,14 +1,12 @@
 // backend/routes/events.js
-const express = require("express");
-const Event = require("../models/Event");
-// Más adelante, cuando tengamos el login en el front, podemos proteger:
-// const { auth, requiresAdmin } = require("../middleware/auth");
+import express from "express";
+import Event from "../models/Event.js";
 
 const router = express.Router();
 
 /**
  * GET /api/events
- * Devuelve todos los eventos (públicos y privados)
+ * Devuelve todos los eventos
  */
 router.get("/", async (req, res) => {
   try {
@@ -22,19 +20,15 @@ router.get("/", async (req, res) => {
 
 /**
  * POST /api/events
- * Crea un evento nuevo
- * body:
- * { title, date, guests, price, type, place }
  */
-// Si quieres que solo admin cree eventos: agrega [auth, requiresAdmin] antes de async
 router.post("/", async (req, res) => {
   try {
     const { title, date, guests, price, type, place } = req.body;
 
     if (!title || !date) {
-      return res
-        .status(400)
-        .json({ message: "Título y fecha son campos requeridos" });
+      return res.status(400).json({
+        message: "Título y fecha son campos requeridos",
+      });
     }
 
     const event = await Event.create({
@@ -55,9 +49,7 @@ router.post("/", async (req, res) => {
 
 /**
  * PATCH /api/events/:id
- * Actualiza datos de un evento (por ejemplo, para editar o restar asientos)
  */
-// Igual, podríamos usar [auth, requiresAdmin] cuando el front ya mande token
 router.patch("/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -80,7 +72,6 @@ router.patch("/:id", async (req, res) => {
 
 /**
  * DELETE /api/events/:id
- * Elimina un evento
  */
 router.delete("/:id", async (req, res) => {
   try {
@@ -99,4 +90,4 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
