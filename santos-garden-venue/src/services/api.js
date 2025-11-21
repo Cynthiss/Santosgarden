@@ -1,4 +1,4 @@
-// 🌐 Lee la URL desde las variables de entorno de Vercel
+// 🔥 Obtiene la URL del backend desde las variables de entorno de Vercel
 const API_BASE = import.meta.env.VITE_API_BASE;
 
 export const api = {
@@ -50,7 +50,9 @@ export const api = {
   async deleteEvent(id, token) {
     const res = await fetch(`${API_BASE}/api/events/${id}`, {
       method: "DELETE",
-      headers: { ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+      headers: {
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
     });
 
     if (!res.ok) {
@@ -83,7 +85,7 @@ export const api = {
   },
 
   // =====================================
-  //  RESERVAS PARA EVENTOS (ASIENTOS)
+  //   RESERVAS DE ASIENTOS
   // =====================================
   async createReservation(eventId, seats, token) {
     const res = await fetch(`${API_BASE}/api/reservations`, {
@@ -105,7 +107,9 @@ export const api = {
 
   async getMyReservations(token) {
     const res = await fetch(`${API_BASE}/api/reservations/my`, {
-      headers: { ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+      headers: {
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
     });
 
     if (!res.ok) {
@@ -118,7 +122,9 @@ export const api = {
 
   async getAllReservations(token) {
     const res = await fetch(`${API_BASE}/api/reservations/all`, {
-      headers: { ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+      headers: {
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
     });
 
     if (!res.ok) {
