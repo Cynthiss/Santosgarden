@@ -7,9 +7,8 @@ const eventSchema = new mongoose.Schema({
   place: String,
   guests: Number,
   price: Number,
-  type: String, // "public" o "private"
+  type: String,
 });
 
 const Event = mongoose.model("Event", eventSchema);
-
 export default Event;
