@@ -1,10 +1,6 @@
-// 🔥 Obtiene la URL del backend desde las variables de entorno de Vercel
 const API_BASE = import.meta.env.VITE_API_BASE;
 
 export const api = {
-  // =====================================
-  //               EVENTOS
-  // =====================================
   async getEvents() {
     const res = await fetch(`${API_BASE}/api/events`);
     if (!res.ok) throw new Error("Error al cargar eventos");
@@ -63,81 +59,6 @@ export const api = {
     return true;
   },
 
-  // =====================================
-  //   RESERVA DEL SALÓN (CONTACT PAGE)
-  // =====================================
-  async createSalonReservation(data, token) {
-    const res = await fetch(`${API_BASE}/api/reservations/salon`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.message || "Error al crear la reserva del salón");
-    }
-
-    return res.json();
-  },
-
-  // =====================================
-  //   RESERVAS DE ASIENTOS
-  // =====================================
-  async createReservation(eventId, seats, token) {
-    const res = await fetch(`${API_BASE}/api/reservations`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      },
-      body: JSON.stringify({ eventId, seats }),
-    });
-
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.message || "Error al crear la reserva");
-    }
-
-    return res.json();
-  },
-
-  async getMyReservations(token) {
-    const res = await fetch(`${API_BASE}/api/reservations/my`, {
-      headers: {
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      },
-    });
-
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.message || "Error al obtener reservas");
-    }
-
-    return res.json();
-  },
-
-  async getAllReservations(token) {
-    const res = await fetch(`${API_BASE}/api/reservations/all`, {
-      headers: {
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      },
-    });
-
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.message || "Error al obtener todas las reservas");
-    }
-
-    return res.json();
-  },
-
-  // =====================================
-  //              LOGIN
-  // =====================================
   async login(email, password) {
     const res = await fetch(`${API_BASE}/auth/login`, {
       method: "POST",
@@ -146,7 +67,6 @@ export const api = {
     });
 
     if (!res.ok) throw new Error("Error en login");
-
     return res.json();
   },
 };
