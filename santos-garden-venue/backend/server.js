@@ -6,23 +6,30 @@ import authRouter from "./routes/auth.js";
 import eventsRouter from "./routes/events.js";
 import reservationsRouter from "./routes/reservations.js";
 
-
 const app = express();
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Conexión a MongoDB
-mongoose
-  .connect("mongodb://localhost:27017/santos_garden")
-  .then(() => console.log("MongoDB conectado ✔"))
-  .catch((err) => console.error("Error en Mongo:", err));
+// ======== VARIABLES DE ENTORNO ========
+const MONGO_URI = process.env.MONGO_URI;
+const PORT = process.env.PORT || 4000;
 
-// Rutas
+// ======== CONEXIÓN A MONGODB ATLAS ========
+mongoose
+  .connect(MONGO_URI, {
+    serverSelectionTimeoutMS: 5000,
+  })
+  .then(() => console.log("✔ MongoDB Atlas conectado exitosamente"))
+  .catch((err) => console.error("❌ Error de conexión MongoDB:", err));
+
+// ======== RUTAS ========
 app.use("/auth", authRouter);
 app.use("/api/events", eventsRouter);
 app.use("/api/reservations", reservationsRouter);
 
-app.listen(4000, () => {
-  console.log("API escuchando en http://localhost:4000");
+// ======== INICIAR SERVIDOR ========
+app.listen(PORT, () => {
+  console.log(`🚀 API escuchando correctamente en http://localhost:${PORT}`);
 });
