@@ -1,5 +1,5 @@
 // backend/models/Event.js
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const eventSchema = new mongoose.Schema({
   title: String,
@@ -10,4 +10,6 @@ const eventSchema = new mongoose.Schema({
   type: String, // "public" o "private"
 });
 
-module.exports = mongoose.model("Event", eventSchema);
+const Event = mongoose.model("Event", eventSchema);
+
+export default Event;
